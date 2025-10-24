@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Polaris — Landing</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+body{background:linear-gradient(135deg,#f8f9fa 0,#e9ecef 100%);color:#2c3e50}
+.header{display:flex;align-items:center;gap:1rem;padding:1rem 2rem}
+.logo{height:56px}
+.nav{margin-left:auto;display:flex;gap:1rem;align-items:center}
+.nav a{color:inherit;text-decoration:none}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:3rem;max-width:1100px;margin:2rem auto;border-radius:14px;background:linear-gradient(45deg,#3498db,#2980b9);color:#fff}
+.hero .left{max-width:60%}
+.h1{font-size:2.25rem;margin-bottom:0.5rem}
+.p{opacity:0.95}
+.cta{margin-top:1rem;display:flex;gap:0.75rem}
+.btn{padding:0.8rem 1.2rem;border-radius:999px;border:none;cursor:pointer;font-weight:700}
+.btn-primary{background:#fff;color:#2980b9}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.25)}
+.right img{max-width:320px;width:100%;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.12)}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:1100px;margin:1rem auto;padding:1rem}
+.feature{background:#fff;padding:1rem;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:center}
+.footer{margin:2rem auto;text-align:center;color:#7f8c8d}
+@media(max-width:800px){.hero{flex-direction:column;text-align:center}.hero .left{max-width:100%}.right img{max-width:260px}}
+</style>
+</head>
+<body>
+<header class="header">
+<img src="logo.png" alt="Polaris logo" class="logo" onerror="this.style.display='none'">
+<nav class="nav" aria-label="Main navigation">
+<a href="homepage.htm"><i class="fas fa-home"></i> Home</a>
+<a href="products.htm"><i class="fas fa-box"></i> Products</a>
+<a href="about.htm"><i class="fas fa-info-circle"></i> About</a>
+<a href="faq.htm"><i class="fas fa-question-circle"></i> FAQ</a>
+<a href="contact.htm"><i class="fas fa-envelope"></i> Contact</a>
+</nav>
+</header>
+<section class="hero" role="region" aria-label="Landing hero">
+<div class="left">
+<h1 class="h1">Welcome to Polaris</h1>
+<p class="p">Premium Apple products crafted for the future. Fast shipping · Authentic · Secure payments</p>
+<div class="cta">
+<a href="products.htm" class="btn btn-primary">Shop Products</a>
+<a href="homepage.htm" class="btn btn-outline">Explore More</a>
+</div>
+</div>
+<div class="right">
+<img src="iphone16.jpg" alt="Featured product image">
+</div>
+</section>
+<section class="features" aria-label="Key features">
+<div class="feature"><i class="fas fa-shipping-fast" style="font-size:1.5rem;color:#2980b9;margin-bottom:0.5rem"></i><h3>Fast Shipping</h3><p class="muted">Get your order quickly with reliable carriers.</p></div>
+<div class="feature"><i class="fas fa-shield-alt" style="font-size:1.5rem;color:#2980b9;margin-bottom:0.5rem"></i><h3>Secure Checkout</h3><p class="muted">Encrypted payments & privacy-first approach.</p></div>
+<div class="feature"><i class="fas fa-tags" style="font-size:1.5rem;color:#2980b9;margin-bottom:0.5rem"></i><h3>Best Prices</h3><p class="muted">Competitive pricing on top-tier devices.</p></div>
+</section>
+<footer class="footer"><p>&copy; 2025 Polaris</p><p><small>If your logo file is named differently, update the img src in this file to point to your logo (e.g., /assets/logo.svg)</small></p></footer>
+</body>
+</html>
