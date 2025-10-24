@@ -8,47 +8,60 @@
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Reset some default styles */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+        /* Reset & base */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        body { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); color:#2c3e50; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
 
         /* Header and Navigation */
         .header { background: linear-gradient(45deg, #2c3e50, #3498db); color: white; padding: 1rem 0; text-align: center; animation: fadeIn 1.5s ease-in; }
-        .nav { background: rgba(255,255,255,0.95); box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 0.5rem 2rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
-        .nav-links { display:flex; align-items:center; gap:1.25rem; }
-        .nav a { color:#2c3e50; text-decoration:none; transition: color 0.3s ease; font-size:1rem; }
-        .nav a:hover { color:#3498db; }
+        .header h1 { font-size:1.6rem; letter-spacing:0.6px; }
+        .header p { opacity:0.9; margin-top:6px; font-size:0.95rem; }
+
+        .nav { background: rgba(255,255,255,0.95); box-shadow: 0 2px 5px rgba(0,0,0,0.08); padding: 0.5rem 1.5rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; border-radius:8px; margin:1rem; max-width:1200px; margin-left:auto; margin-right:auto; }
+        .nav-links { display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap; }
+        .nav a { color:#2c3e50; text-decoration:none; transition: color 0.25s ease; font-size:0.98rem; display:inline-flex; gap:0.5rem; align-items:center; padding:6px 8px; border-radius:6px; }
+        .nav a:hover { color:#3498db; background:rgba(52,152,219,0.06); }
+
         .cart-checkout { display:flex; align-items:center; gap:0.75rem; }
-        .cart-icon, .checkout-btn { cursor:pointer; transition:transform 0.2s ease; color:#2c3e50; font-size:1.4rem; position:relative; }
-        .cart-count { position:absolute; top:-8px; right:-10px; background:#e74c3c; color:white; font-size:0.7rem; padding:2px 6px; border-radius:20px; }
+        .cart-icon, .checkout-btn { cursor:pointer; transition:transform 0.2s ease; color:#2c3e50; font-size:1.25rem; position:relative; text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; padding:6px 8px; border-radius:6px; }
+        .cart-icon:hover, .checkout-btn:hover { transform:translateY(-2px); color:#3498db; }
+        .cart-count { position:absolute; top:-8px; right:-8px; background:#e74c3c; color:white; font-size:0.7rem; padding:2px 6px; border-radius:20px; display:inline-block; min-width:18px; text-align:center; }
+
+        /* Hero Section */
+        .hero { background: linear-gradient(45deg,#3498db,#2980b9); color:white; text-align:center; padding:2.25rem 1rem; border-radius:12px; margin:1rem; box-shadow:0 5px 15px rgba(0,0,0,0.08); max-width:1200px; margin-left:auto; margin-right:auto; }
+        .hero h2 { font-size:1.6rem; margin-bottom:0.5rem; }
+        .hero p { font-size:1rem; opacity:0.95; max-width:900px; margin-left:auto; margin-right:auto; }
 
         /* Products */
         .products-container { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; padding:1.5rem; max-width:1200px; margin:0 auto; }
-        .product-card { background: linear-gradient(145deg,#ffffff,#f8f9fa); border-radius:12px; padding:1rem; box-shadow:0 5px 15px rgba(0,0,0,0.08); transition:transform 0.25s ease, box-shadow 0.25s ease; display:flex; flex-direction:column; gap:0.6rem; }
-        .product-card:hover { transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,0.12); }
-        .product-image { width:100%; height:180px; object-fit:contain; background:#fff; border-radius:8px; }
-        .price { color:#3498db; font-size:1.2rem; font-weight:700; margin-top:0.4rem; }
-        .actions { margin-top:auto; display:flex; gap:0.6rem; }
-        .buy-btn { background:linear-gradient(45deg,#3498db,#2980b9); color:white; border:none; padding:0.55rem 0.9rem; border-radius:20px; cursor:pointer; font-weight:600; }
-        .cart-btn { background:transparent; border:1px solid #2c3e50; padding:0.4rem 0.7rem; border-radius:20px; cursor:pointer; display:flex; gap:0.5rem; align-items:center; }
+        .product-card { background: linear-gradient(145deg,#ffffff,#f8f9fa); border-radius:12px; padding:1rem; box-shadow:0 5px 15px rgba(0,0,0,0.06); transition:transform 0.25s ease, box-shadow 0.25s ease; display:flex; flex-direction:column; height:100%; }
+        .product-card:hover { transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,0.10); }
+        .product-image { width:100%; height:180px; object-fit:contain; background:#fff; border-radius:8px; display:block; }
+        .product-card h3 { margin-top:0.9rem; font-size:1.05rem; }
+        .muted { opacity:0.85; font-size:0.95rem; color:#616b75; margin-top:0.35rem; }
+        .price { color:#3498db; font-size:1.15rem; font-weight:700; margin-top:0.6rem; }
+
+        .actions { margin-top:auto; display:flex; gap:0.6rem; margin-top:1rem; }
+        .buy-btn { background:linear-gradient(45deg,#3498db,#2980b9); color:white; border:none; padding:0.55rem 0.9rem; border-radius:20px; cursor:pointer; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; }
+        .cart-btn { background:transparent; border:1px solid #2c3e50; padding:0.42rem 0.7rem; border-radius:20px; cursor:pointer; display:inline-flex; gap:0.5rem; align-items:center; color:#2c3e50; text-decoration:none; font-weight:600; }
         .cart-btn .fa { color:#2c3e50; }
-        .buy-btn:hover, .cart-btn:hover { transform:scale(1.03); opacity:0.95; }
+        .buy-btn:hover, .cart-btn:hover { transform:translateY(-3px); opacity:0.98; }
 
-        /* Hero Section */
-        .hero { background: linear-gradient(45deg,#3498db,#2980b9); color:white; text-align:center; padding:2.5rem 1rem; border-radius:12px; margin:1rem; box-shadow:0 5px 15px rgba(0,0,0,0.12); }
-        .hero h2 { font-size:1.8rem; margin-bottom:0.6rem; }
-        .hero p { font-size:1rem; opacity:0.9; }
+        footer { background: linear-gradient(45deg,#2c3e50,#34495e); color:white; text-align:center; padding:1.5rem; margin:2rem; border-radius:8px; max-width:1200px; margin-left:auto; margin-right:auto; }
 
-        footer { background: linear-gradient(45deg,#2c3e50,#34495e); color:white; text-align:center; padding:1.5rem; margin:2rem; border-radius:8px; }
+        /* small helper */
+        .muted { opacity:0.85; font-size:0.95rem; color:#2c3e50; }
 
         @media (max-width:768px) {
             .nav { flex-direction:column; align-items:center; }
             .nav-links { flex-direction:column; gap:0.5rem; }
-            .products-container { padding:1rem; }
+            .products-container { padding:1rem; grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width:420px) {
+            .products-container { grid-template-columns: 1fr; }
         }
 
-        /* small helper */
-        .muted { opacity:0.85; font-size:0.95rem; color:#2c3e50; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-6px);} to { opacity:1; transform:none;} }
     </style>
 </head>
 <body>
@@ -57,78 +70,80 @@
         <p>Next Generation Apple Products</p>
     </header>
 
-    <nav class="nav">
-        <div class="nav-links">
-            <a href="homepage.htm"><i class="fas fa-home"></i> Home</a>
-            <a href="products.htm"><i class="fas fa-box"></i> Products</a>
-            <a href="#about"><i class="fas fa-info-circle"></i> About</a>
-            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    <nav class="nav" role="navigation" aria-label="Main Navigation">
+        <div class="nav-links" role="menubar" aria-label="Site Links">
+            <a href="homepage.htm"><i class="fas fa-home" aria-hidden="true"></i> <span>Home</span></a>
+            <a href="products.htm"><i class="fas fa-box" aria-hidden="true"></i> <span>Products</span></a>
+            <a href="#about"><i class="fas fa-info-circle" aria-hidden="true"></i> <span>About</span></a>
+            <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> <span>Contact</span></a>
         </div>
 
-        <div class="cart-checkout">
-            <a href="cart.htm" class="cart-icon" title="View cart">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-count" class="cart-count" style="display:none">0</span>
+        <div class="cart-checkout" aria-hidden="false">
+            <!-- Without JavaScript we show a static cart count (user or server could replace it) -->
+            <a href="cart.htm" class="cart-icon" title="View cart" aria-label="View cart">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <span id="cart-count" class="cart-count">0</span>
             </a>
-            <a href="checkout.htm" class="checkout-btn" title="Checkout">
-                <i class="fas fa-arrow-right"></i>
+            <a href="checkout.htm" class="checkout-btn" title="Checkout" aria-label="Checkout">
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
         </div>
     </nav>
 
-    <section class="hero">
-        <h2>Discover the Future of Apple</h2>
+    <section class="hero" aria-labelledby="hero-heading">
+        <h2 id="hero-heading">Discover the Future of Apple</h2>
         <p>Experience the latest in innovation and design with Polaris. Explore our exclusive range of cutting-edge Apple products.</p>
     </section>
 
-    <div class="products-container">
-        <!-- Each product's Pre-order button opens the pre-order page with the product info in the query string.
-             The Add to Cart button adds the product to localStorage cart immediately. -->
-        <div class="product-card" data-name="iPhone 17 Pro" data-price="787.99" data-img="">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQDw8QDw8QEA8QDw8VFg8QFRAPDxAQFREXGBUVFRUYHSggGBolGxUVITEhJikrLi4uFx8zODMsNygtLisBCgoKDg0OFxAQGisdHR0tLS0rLS0tLS0tLS0[...]" alt="iPhone 17 Pro" class="product-image">
+    <div class="products-container" role="list">
+        <!-- Each product uses plain links only (no JavaScript). Query string values are encoded directly in the href so servers or other pages can read them. -->
+
+        <div class="product-card" role="listitem">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="iPhone 17 Pro" class="product-image">
             <h3>iPhone 17 Pro</h3>
             <p class="muted">Revolutionary A18 Bionic chip with ProMotion display</p>
             <div class="price">$787.99</div>
             <div class="actions">
-                <button class="buy-btn" data-action="preorder">Pre-order Now</button>
-                <button class="cart-btn" data-action="add-to-cart" title="Add to cart"><i class="fas fa-cart-plus"></i> Add</button>
+                <a class="buy-btn" href="pre-order.htm?name=iPhone%2017%20Pro&price=787.99&img=" title="Pre-order iPhone 17 Pro">Pre-order Now</a>
+                <a class="cart-btn" href="cart.htm?add=iPhone%2017%20Pro&price=787.99" title="Add iPhone 17 Pro to cart"><i class="fas fa-cart-plus" aria-hidden="true"></i> Add</a>
             </div>
         </div>
 
-        <div class="product-card" data-name="iPhone 17" data-price="687.00" data-img="">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQDxAQEBAQDxAQEA8PEA0QDxINDxAQFREXFhYRFRUYHCggGBolGxMVITEhJSorOjEvFx8zODMtNyotLy4BCgoKDg0OGxAQGy0dHSUvLi0uLy8tLS0tLSs[...]" alt="iPhone 17" class="product-image">
+        <div class="product-card" role="listitem">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="iPhone 17" class="product-image">
             <h3>iPhone 17</h3>
             <p class="muted">Advanced dual-camera system with Night mode</p>
             <div class="price">$687.00</div>
             <div class="actions">
-                <button class="buy-btn" data-action="preorder">Pre-order Now</button>
-                <button class="cart-btn" data-action="add-to-cart"><i class="fas fa-cart-plus"></i> Add</button>
+                <a class="buy-btn" href="pre-order.htm?name=iPhone%2017&price=687.00&img=" title="Pre-order iPhone 17">Pre-order Now</a>
+                <a class="cart-btn" href="cart.htm?add=iPhone%2017&price=687.00" title="Add iPhone 17 to cart"><i class="fas fa-cart-plus" aria-hidden="true"></i> Add</a>
             </div>
         </div>
 
-        <div class="product-card" data-name="iPhone Air" data-price="899" data-img="https://powermaccenter.com/cdn/shop/files/IMG-18066289_m_jpeg_1_651377ee-623e-4f0e-a8a8-ec9924f08795.jpg?v=1757470893&width=823">
+        <div class="product-card" role="listitem">
+            <!-- Using an external product image; replace with a valid image URL on your server if desired -->
             <img src="https://powermaccenter.com/cdn/shop/files/IMG-18066289_m_jpeg_1_651377ee-623e-4f0e-a8a8-ec9924f08795.jpg?v=1757470893&width=823" alt="iPhone Air" class="product-image">
             <h3>iPhone Air</h3>
             <p class="muted">Ultra-lightweight design with A16 Bionic chip</p>
             <div class="price">$899</div>
             <div class="actions">
-                <button class="buy-btn" data-action="preorder">Pre-order Now</button>
-                <button class="cart-btn" data-action="add-to-cart"><i class="fas fa-cart-plus"></i> Add</button>
+                <a class="buy-btn" href="pre-order.htm?name=iPhone%20Air&price=899&img=https%3A%2F%2Fpowermaccenter.com%2Fcdn%2Fshop%2Ffiles%2FIMG-18066289_m_jpeg_1_651377ee-623e-4f0e-a8a8-ec9924f08795.jpg%3Fv%3D1757470893%26width%3D823" title="Pre-order iPhone Air">Pre-order Now</a>
+                <a class="cart-btn" href="cart.htm?add=iPhone%20Air&price=899" title="Add iPhone Air to cart"><i class="fas fa-cart-plus" aria-hidden="true"></i> Add</a>
             </div>
         </div>
 
-        <div class="product-card" data-name="iPhone 16" data-price="563.99" data-img="iphone16.jpg">
+        <div class="product-card" role="listitem">
             <img src="iphone16.jpg" alt="iPhone 16" class="product-image">
             <h3>iPhone 16</h3>
             <p class="muted">Large 6.7&quot; Super Retina XDR display</p>
             <div class="price">$563.99</div>
             <div class="actions">
-                <button class="buy-btn" data-action="preorder">Pre-order Now</button>
-                <button class="cart-btn" data-action="add-to-cart"><i class="fas fa-cart-plus"></i> Add</button>
+                <a class="buy-btn" href="pre-order.htm?name=iPhone%2016&price=563.99&img=iphone16.jpg" title="Pre-order iPhone 16">Pre-order Now</a>
+                <a class="cart-btn" href="cart.htm?add=iPhone%2016&price=563.99" title="Add iPhone 16 to cart"><i class="fas fa-cart-plus" aria-hidden="true"></i> Add</a>
             </div>
         </div>
 
-        <!-- more product cards... keep same structure -->
+        <!-- Additional product cards can follow the same pattern -->
     </div>
 
     <footer>
@@ -136,82 +151,6 @@
         <p>Experience the future of mobile technology</p>
     </footer>
 
-    <script>
-        // ---- Simple cart and pre-order interactions using localStorage ---- //
-        const CART_KEY = 'polaris_cart_v1';
-
-        function getCart() {
-            try {
-                return JSON.parse(localStorage.getItem(CART_KEY) || '[]');
-            } catch (e) {
-                return [];
-            }
-        }
-        function saveCart(cart) {
-            localStorage.setItem(CART_KEY, JSON.stringify(cart));
-            renderCartCount();
-        }
-
-        function addToCart(item) {
-            const cart = getCart();
-            // If same product already in cart, increase qty
-            const existing = cart.find(i => i.name === item.name);
-            if (existing) {
-                existing.qty = (existing.qty || 1) + (item.qty || 1);
-            } else {
-                cart.push(Object.assign({ qty: 1 }, item));
-            }
-            saveCart(cart);
-        }
-
-        function renderCartCount() {
-            const cart = getCart();
-            const count = cart.reduce((s,i)=> s + (i.qty||1), 0);
-            const el = document.getElementById('cart-count');
-            if (!el) return;
-            if (count > 0) {
-                el.style.display = 'inline-block';
-                el.textContent = count;
-            } else {
-                el.style.display = 'none';
-            }
-        }
-
-        // On page load attach handlers
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCartCount();
-
-            // Add click handlers to each card's buttons
-            document.querySelectorAll('.product-card').forEach(card => {
-                const name = card.getAttribute('data-name') || card.querySelector('h3')?.textContent || 'Product';
-                const price = parseFloat(card.getAttribute('data-price') || '0');
-                const img = card.getAttribute('data-img') || card.querySelector('.product-image')?.getAttribute('src') || '';
-
-                // Pre-order button: open pre-order page and pass product data in query string
-                const preorderBtn = card.querySelector('button.buy-btn[data-action="preorder"]');
-                if (preorderBtn) {
-                    preorderBtn.addEventListener('click', () => {
-                        const params = new URLSearchParams({ name, price, img });
-                        window.location.href = 'pre-order.htm?' + params.toString();
-                    });
-                }
-
-                // Add-to-cart button
-                const cartBtn = card.querySelector('button.cart-btn[data-action="add-to-cart"]');
-                if (cartBtn) {
-                    cartBtn.addEventListener('click', () => {
-                        addToCart({ name, price, img, addedAt: new Date().toISOString() });
-                        // small UI feedback
-                        cartBtn.innerHTML = '<i class="fas fa-check"></i> Added';
-                        cartBtn.disabled = true;
-                        setTimeout(() => {
-                            cartBtn.innerHTML = '<i class="fas fa-cart-plus"></i> Add';
-                            cartBtn.disabled = false;
-                        }, 1200);
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
+```
