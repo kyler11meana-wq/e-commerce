@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FAQ — Polaris</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body{font-family:'Segoe UI',sans-serif;margin:0;background:linear-gradient(135deg,#f8f9fa,#e9ecef);color:#2c3e50}
+    .container{max-width:900px;margin:2rem auto;padding:1rem}
+    header{display:flex;align-items:center;gap:1rem;padding:1rem}
+    .card{background:#fff;padding:1.25rem;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+    details{margin-top:0.75rem;padding:0.5rem;border-radius:8px}
+    summary{font-weight:700;cursor:pointer}
+    footer{margin-top:1rem;color:#7f8c8d;text-align:center}
+    a{color:inherit;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" alt="Polaris logo" style="height:44px" onerror="this.style.display='none'">
+      <nav aria-label="Main navigation" style="margin-left:auto;display:flex;gap:1rem">
+        <a href="homepage.htm"><i class="fas fa-home"></i> Home</a>
+        <a href="products.htm"><i class="fas fa-box"></i> Products</a>
+        <a href="about.htm"><i class="fas fa-info-circle"></i> About</a>
+        <a href="contact.htm"><i class="fas fa-envelope"></i> Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card" aria-labelledby="faq-heading">
+        <h1 id="faq-heading">Frequently Asked Questions</h1>
+
+        <details open>
+          <summary>Do you sell genuine Apple products?</summary>
+          <p>Yes. We source devices from trusted partners and ensure authenticity. If you have concerns about a specific listing, contact support.</p>
+        </details>
+
+        <details>
+          <summary>What is your return policy?</summary>
+          <p>We offer a 14-day return policy on most products. Items must be returned in original condition unless otherwise stated.</p>
+        </details>
+
+        <details>
+          <summary>How long does shipping take?</summary>
+          <p>Shipping times vary by region. Typical domestic shipments arrive within 2–5 business days.</p>
+        </details>
+
+        <details>
+          <summary>Do you provide warranty?</summary>
+          <p>Many devices include manufacturer warranty. Where additional coverage is offered, it will be listed on the product page.</p>
+        </details>
+
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Polaris</p>
+    </footer>
+  </div>
+</body>
+</html>
