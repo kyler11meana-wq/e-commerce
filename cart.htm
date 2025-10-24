@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Cart — Polaris</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous"/>
+    <style>
+        body { font-family:'Segoe UI',sans-serif; background:linear-gradient(135deg,#f2f5f9,#eef3f8); margin:0; padding:1rem; color:#222; }
+        .container { max-width:1000px; margin:1rem auto; background:#fff; border-radius:12px; padding:1rem; box-shadow:0 8px 30px rgba(0,0,0,0.06); }
+        header { display:flex; justify-content:space-between; align-items:center; }
+        table { width:100%; border-collapse:collapse; margin-top:0.8rem; }
+        th, td { text-align:left; padding:0.6rem; border-bottom:1px solid #eef2f6; }
+        .thumb { width:84px; height:64px; object-fit:contain; border-radius:6px; background:#fff; border:1px solid #f0f2f5; }
+        .qty-input { width:64px; padding:0.35rem; border-radius:6px; border:1px solid #cdd9e6; }
+        .actions { display:flex; gap:0.5rem; }
+        .btn { padding:0.45rem 0.7rem; border-radius:8px; border:none; cursor:pointer; }
+        .btn-primary { background:linear-gradient(45deg,#3498db,#2980b9); color:#fff; }
+        .btn-danger { background:#ff6b6b; color:#fff; }
+        .muted { color:#6b7b8a; font-size:0.95rem; }
+        .empty { text-align:center; padding:2rem; color:#567; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2>Your Cart</h2>
+            <div><a href="homepage.htm"><i class="fas fa-arrow-left"></i> Continue shopping</a></div>
+        </header>
+
+        <div id="cart-area"></div>
+
+    </div>
+
+    <script>
+        const CART_KEY = 'polaris_cart_v1';
+
+        function getCart() {
+            try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch(e) { return []; }
+        }
+        function saveCart(cart) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+            render();
+        }
+
+        function formatMoney(n) { return '$' + Number(n || 0).toFixed(2); }
+
+        function render() {
+            const cart = getCart();
+            const area = document.getElementById('cart-area');
+            if (!cart || cart.length === 0) {
+                area.innerHTML = '<div class="empty"><p>Your cart is empty.</p><p><a href="homepage.htm">Go back to store</a></p></div>';
+                return;
+            }
+
+            let html = '<table><thead><tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead><tbody>';
+            let total = 0;
+            cart.forEach((it, idx) => {
+                const sub = (Number(it.price || 0) * Number(it.qty || 1));
+                total += sub;
+                html += `<tr data-idx="${idx}">
+                    <td><div style="display:flex;gap:0.6rem;align-items:center"><img src="${it.img || 'https://via.placeholder.com/160x120?text=Product'}" class="thumb" alt=""><div><strong>${it.name}</strong><div class="muted">${it.variant || ''}</div></div></div></td>
+                    <td>${formatMoney(it.price)}</td>
+                    <td><input class="qty-input" type="number" min="1" value="${it.qty||1}" data-idx="${idx}"/></td>
+                    <td>${formatMoney(sub)}</td>
+                    <td><button class="btn btn-danger" data-remove="${idx}"><i class="fas fa-trash"></i></button></td>
+                </tr>`;
+            });
+            html += `</tbody></table>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.8rem">
+                    <div class="muted">You are ordering from Polaris. Local taxes and shipping may apply.</div>
+                    <div>
+                        <strong>Total: ${formatMoney(total)}</strong>
+                        <button id="checkout-btn" class="btn btn-primary" style="margin-left:0.8rem">Checkout</button>
+                    </div>
+                </div>`;
+            area.innerHTML = html;
+
+            // attach events
+            document.querySelectorAll('.qty-input').forEach(inp => {
+                inp.addEventListener('change', (e) => {
+                    const idx = Number(e.target.getAttribute('data-idx'));
+                    const v = Math.max(1, Number(e.target.value || 1));
+                    const cart = getCart();
+                    cart[idx].qty = v;
+                    saveCart(cart);
+                });
+            });
+
+            document.querySelectorAll('[data-remove]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = Number(e.target.closest('button').getAttribute('data-remove'));
+                    const cart = getCart();
+                    cart.splice(idx,1);
+                    saveCart(cart);
+                });
+            });
+
+            document.getElementById('checkout-btn').addEventListener('click', () => {
+                // simplistic checkout simulation
+                if (!confirm('Proceed to checkout? This is a demo and will clear your cart.')) return;
+                localStorage.removeItem(CART_KEY);
+                render();
+                alert('Thank you — your order has been placed (demo).');
+            });
+        }
+
+        // initial render
+        render();
+    </script>
+</body>
+</html>
