@@ -38,7 +38,6 @@
 
         <main>
             <div id="product-area" class="product">
-                <img id="product-image" src="" alt="Product image"/>
                 <div class="details">
                     <h2 id="product-name">Product</h2>
                     <div id="product-desc" class="muted">Pre-order description will appear here.</div>
@@ -83,75 +82,5 @@
             </div>
         </main>
     </div>
-
-    <script>
-        // Read product details from query string
-        function qs(key) {
-            const params = new URLSearchParams(location.search);
-            return params.get(key) || '';
-        }
-
-        const CART_KEY = 'polaris_cart_v1';
-        function getCart() { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch(e) { return []; } }
-        function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
-
-        // Prefill UI
-        const name = decodeURIComponent(qs('name') || '');
-        const price = parseFloat(qs('price') || '0');
-        const img = decodeURIComponent(qs('img') || '');
-
-        document.getElementById('product-name').textContent = name || 'Product';
-        document.getElementById('product-price').textContent = price ? ('$' + Number(price).toFixed(2)) : 'Price not available';
-        document.getElementById('product-image').src = img || 'https://via.placeholder.com/320x240?text=Product';
-        document.getElementById('product-desc').textContent = 'Pre-order the latest product. Your pre-order will be processed and you will be contacted by email.';
-
-        // Add to cart (from pre-order page)
-        document.getElementById('add-to-cart').addEventListener('click', () => {
-            const qty = parseInt(document.getElementById('quantity').value || '1', 10);
-            const variant = document.getElementById('variant').value || '';
-            const item = { name: name || 'Product', price: price || 0, img: img || '', variant, qty, addedAt: new Date().toISOString() };
-            const cart = getCart();
-            const existing = cart.find(i => i.name === item.name && i.variant === item.variant);
-            if (existing) existing.qty += qty;
-            else cart.push(item);
-            saveCart(cart);
-            showNotice('Added to cart. You can view your cart on the cart page.');
-        });
-
-        // Pre-order form confirmation (store a small record in localStorage 'polaris_preorders_v1')
-        const PRE_KEY = 'polaris_preorders_v1';
-        function getPreorders() { try { return JSON.parse(localStorage.getItem(PRE_KEY) || '[]'); } catch(e) { return []; } }
-        function savePreorders(p) { localStorage.setItem(PRE_KEY, JSON.stringify(p)); }
-
-        document.getElementById('preorder-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const cust = document.getElementById('customer-name').value.trim();
-            const email = document.getElementById('customer-email').value.trim();
-            const qty = parseInt(document.getElementById('quantity').value || '1', 10);
-            const variant = document.getElementById('variant').value || '';
-            if (!cust || !email) { showNotice('Please enter your name and email.'); return; }
-
-            const pre = { product: name || 'Unknown', price: price || 0, qty, variant, customer: { name: cust, email }, createdAt: new Date().toISOString() };
-            const preorders = getPreorders();
-            preorders.push(pre);
-            savePreorders(preorders);
-
-            // optionally auto-add to cart as well
-            const cart = getCart();
-            cart.push({ name: pre.product, price: pre.price, qty: pre.qty, img, variant, addedAt: new Date().toISOString() });
-            saveCart(cart);
-
-            showNotice('Thank you! Your pre-order request has been recorded. We will contact you by email shortly.');
-            // disable form after submit
-            document.querySelectorAll('#preorder-form input, #preorder-form select, #preorder-form button').forEach(el => el.disabled = true);
-        });
-
-        function showNotice(msg) {
-            const n = document.getElementById('notice');
-            n.style.display = 'block';
-            n.textContent = msg;
-            setTimeout(()=> { n.style.opacity = '1'; }, 10);
-        }
-    </script>
 </body>
 </html>
